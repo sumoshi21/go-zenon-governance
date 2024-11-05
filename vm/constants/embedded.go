@@ -36,6 +36,11 @@ var (
 	AcceleratorProjectVotingPeriod        = 14 * PhaseTimeUnit
 	MaxBlocksPerUpdate                    = 40
 
+	// === Governance ===
+
+	ActionAcceptanceThreshold uint32 = 50
+	ActionVotingPeriod               = 30 * PhaseTimeUnit
+
 	/// ==== Pillar constants ===
 
 	PillarStakeAmount = big.NewInt(15e3 * Decimals)
