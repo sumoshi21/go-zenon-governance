@@ -19,7 +19,7 @@ type ProposeActionMethod struct {
 	MethodName string
 }
 
-func checkActionStatic(param *definition.ActionParam) error {
+func checkActionStatic(param *definition.ActionVariable) error {
 	if len(param.Name) == 0 ||
 		len(param.Name) > constants.ProjectNameLengthMax {
 		governanceLog.Debug("governance-check-action-static", "reason", "malformed-name")
@@ -50,12 +50,12 @@ func checkActionStatic(param *definition.ActionParam) error {
 }
 
 func (p *ProposeActionMethod) GetPlasma(plasmaTable *constants.PlasmaTable) (uint64, error) {
-	return plasmaTable.EmbeddedSimple, nil
+	return plasmaTable.EmbeddedWDoubleWithdraw, nil
 }
 
 func (p *ProposeActionMethod) ValidateSendBlock(block *nom.AccountBlock) error {
 	var err error
-	param := new(definition.ActionParam)
+	param := new(definition.ActionVariable)
 
 	if err := definition.ABIGovernance.UnpackMethod(param, p.MethodName, block.Data); err != nil {
 		return constants.ErrUnpackError
@@ -77,7 +77,7 @@ func (p *ProposeActionMethod) ReceiveBlock(context vm_context.AccountVmContext, 
 		return nil, err
 	}
 
-	proposedAction := new(definition.ActionParam)
+	proposedAction := new(definition.ActionVariable)
 	err := definition.ABIGovernance.UnpackMethod(proposedAction, p.MethodName, sendBlock.Data)
 	common.DealWithErr(err)
 
@@ -90,6 +90,12 @@ func (p *ProposeActionMethod) ReceiveBlock(context vm_context.AccountVmContext, 
 	proposedAction.Owner = sendBlock.Address
 	proposedAction.CreationTimestamp = frontierMomentum.Timestamp.Unix()
 	proposedAction.Executed = false
+	// Only account-blocks to spork are considered type1 for now
+	if proposedAction.Destination.String() == types.SporkContract.String() {
+		proposedAction.Type = constants.Type1Action
+	} else {
+		proposedAction.Type = constants.Type2Action
+	}
 
 	proposedAction.Save(context.Storage())
 
@@ -105,7 +111,7 @@ type ExecuteActionMethod struct {
 }
 
 func (p *ExecuteActionMethod) GetPlasma(plasmaTable *constants.PlasmaTable) (uint64, error) {
-	return plasmaTable.EmbeddedWDoubleWithdraw, nil
+	return plasmaTable.EmbeddedSimple, nil
 }
 
 func (p *ExecuteActionMethod) ValidateSendBlock(block *nom.AccountBlock) error {
@@ -116,9 +122,7 @@ func (p *ExecuteActionMethod) ValidateSendBlock(block *nom.AccountBlock) error {
 		return constants.ErrUnpackError
 	}
 
-	// the cost to create an accelerated project is 1 znn
-	// todo add checks for 0 znn
-	if block.TokenStandard != types.ZnnTokenStandard {
+	if block.TokenStandard != types.ZnnTokenStandard || block.Amount.Sign() != 0 {
 		return constants.ErrInvalidTokenOrAmount
 	}
 
@@ -134,7 +138,7 @@ func (p *ExecuteActionMethod) ReceiveBlock(context vm_context.AccountVmContext, 
 	err := definition.ABIGovernance.UnpackMethod(id, p.MethodName, sendBlock.Data)
 	common.DealWithErr(err)
 
-	action, err := definition.GetAction(context.Storage(), *id)
+	action, err := definition.GetActionById(context.Storage(), *id)
 	if err != nil {
 		return nil, err
 	}
@@ -144,7 +148,16 @@ func (p *ExecuteActionMethod) ReceiveBlock(context vm_context.AccountVmContext, 
 		return nil, err
 	}
 
-	expired := action.CreationTimestamp+constants.ActionVotingPeriod < frontierMomentum.Timestamp.Unix()
+	expirationTime := action.CreationTimestamp
+	if action.Type == constants.Type1Action {
+		expirationTime += constants.Type1ActionVotingPeriod
+	} else if action.Type == constants.Type2Action {
+		expirationTime += constants.Type2ActionVotingPeriod
+	} else {
+		return nil, constants.ErrUnkownActionType
+	}
+
+	expired := expirationTime < frontierMomentum.Timestamp.Unix()
 	if action.Executed || expired {
 		governanceLog.Debug("action-executed-or-expired", "executedValue", action.Executed, "expiredValue", expired)
 		return nil, nil
@@ -155,7 +168,7 @@ func (p *ExecuteActionMethod) ReceiveBlock(context vm_context.AccountVmContext, 
 		return nil, err
 	}
 	numPillars := uint32(len(pillarList))
-	ok := checkActionVotes(context, action.Id, numPillars)
+	ok := checkActionVotes(context, action.Id, numPillars, action.Type)
 	if !ok {
 		return nil, nil
 	}
@@ -182,7 +195,7 @@ func (p *ExecuteActionMethod) ReceiveBlock(context vm_context.AccountVmContext, 
 	}, nil
 }
 
-func checkActionVotes(context vm_context.AccountVmContext, id types.Hash, numPillars uint32) bool {
+func checkActionVotes(context vm_context.AccountVmContext, id types.Hash, numPillars uint32, actionType uint8) bool {
 	breakdown := definition.GetVoteBreakdown(context.Storage(), id)
 
 	ok := true
@@ -190,8 +203,13 @@ func checkActionVotes(context vm_context.AccountVmContext, id types.Hash, numPil
 	if breakdown.Yes <= breakdown.No {
 		ok = false
 	}
+	threshold := constants.Type1ActionAcceptanceThreshold
+	if actionType == uint8(2) {
+		threshold = constants.Type2ActionAcceptanceThreshold
+	}
+
 	// Test enough yes votes
-	if breakdown.Yes*100 <= numPillars*constants.ActionAcceptanceThreshold {
+	if breakdown.Yes*100 <= numPillars*threshold {
 		ok = false
 	}
 

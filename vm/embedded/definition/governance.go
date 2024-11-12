@@ -17,15 +17,24 @@ const (
 			{"name":"description","type":"string"},
 			{"name":"url","type":"string"},
 			{"name":"destination","type":"address"},
-			{"name":"data","type":"string"},
+			{"name":"data","type":"string"}
 		]},
 
 		{"type":"function","name":"ExecuteAction", "inputs":[
 			{"name":"id","type":"hash"}
 		]},
 
-		{"type":"variable","name":"action","inputs":[
+		{"type":"function","name":"VoteByName","inputs":[
 			{"name":"id","type":"hash"},
+			{"name":"name","type":"string"},
+			{"name":"vote","type":"uint8"}
+		]},
+		{"type":"function","name":"VoteByProdAddress","inputs":[
+			{"name":"id","type":"hash"},
+			{"name":"vote","type":"uint8"}
+		]},
+
+		{"type":"variable","name":"action","inputs":[
 			{"name":"owner","type":"address"},
 			{"name":"name","type":"string"},
 			{"name":"description","type":"string"},
@@ -33,6 +42,7 @@ const (
 			{"name":"destination","type":"address"},
 			{"name":"data","type":"string"},
 			{"name":"creationTimestamp","type":"int64"},
+			{"name":"type","type":"uint8"},
 			{"name":"executed","type":"bool"}
 		]}
 	]`
@@ -46,10 +56,10 @@ const (
 var (
 	ABIGovernance = abi.JSONToABIContract(strings.NewReader(jsonGovernance))
 
-	actionKeyPrefix uint8 = 0
+	actionKeyPrefix = []byte{0}
 )
 
-type ActionParam struct {
+type ActionVariable struct {
 	Id                types.Hash
 	Owner             types.Address
 	Name              string
@@ -58,13 +68,14 @@ type ActionParam struct {
 	Destination       types.Address
 	Data              string
 	CreationTimestamp int64
+	Type              uint8
 	Executed          bool
 }
 
-func (action *ActionParam) Save(context db.DB) {
+func (action *ActionVariable) Save(context db.DB) {
 	common.DealWithErr(context.Put(action.Key(),
 		ABIGovernance.PackVariablePanic(
-			ProjectVariableName,
+			actionVariableName,
 			action.Owner,
 			action.Name,
 			action.Description,
@@ -72,26 +83,57 @@ func (action *ActionParam) Save(context db.DB) {
 			action.Destination,
 			action.Data,
 			action.CreationTimestamp,
+			action.Type,
 			action.Executed,
 		)))
 }
-func (action *ActionParam) Delete(context db.DB) {
+func (action *ActionVariable) Delete(context db.DB) {
 	common.DealWithErr(context.Delete(action.Key()))
 }
-func (action *ActionParam) Key() []byte {
-	return common.JoinBytes([]byte{actionKeyPrefix}, action.Id.Bytes())
+func (action *ActionVariable) Key() []byte {
+	return common.JoinBytes(actionKeyPrefix, action.Id.Bytes())
 }
 
-func GetAction(context db.DB, id types.Hash) (*ActionParam, error) {
-	key := (&ActionParam{Id: id}).Key()
+func parseAction(data, key []byte) (*ActionVariable, error) {
+	if len(data) > 0 {
+		dataVar := new(ActionVariable)
+		if err := ABIGovernance.UnpackVariable(dataVar, actionVariableName, data); err != nil {
+			return nil, err
+		}
+		if err := dataVar.Id.SetBytes(key[1:33]); err != nil {
+			return nil, err
+		}
+		return dataVar, nil
+	} else {
+		return nil, constants.ErrDataNonExistent
+	}
+}
+
+func GetActionById(context db.DB, id types.Hash) (*ActionVariable, error) {
+	key := (&ActionVariable{Id: id}).Key()
 	data, err := context.Get(key)
 	common.DealWithErr(err)
-	if len(data) == 0 {
-		return nil, constants.ErrDataNonExistent
-	} else {
-		action := new(ActionParam)
-		ABIGovernance.UnpackVariablePanic(action, actionVariableName, data)
-		action.Id = types.BytesToHashPanic(key[1:33])
-		return action, nil
+	return parseAction(data, key)
+}
+
+func GetActions(context db.DB) ([]*ActionVariable, error) {
+	iterator := context.NewIterator(actionKeyPrefix)
+	defer iterator.Release()
+	list := make([]*ActionVariable, 0)
+
+	for {
+		if !iterator.Next() {
+			if iterator.Error() != nil {
+				return nil, iterator.Error()
+			}
+			break
+		}
+		if action, err := parseAction(iterator.Value(), iterator.Key()); err == nil && action != nil {
+			list = append(list, action)
+		} else {
+			return nil, err
+		}
 	}
+
+	return list, nil
 }

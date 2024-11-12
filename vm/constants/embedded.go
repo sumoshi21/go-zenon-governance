@@ -38,8 +38,12 @@ var (
 
 	// === Governance ===
 
-	ActionAcceptanceThreshold uint32 = 50
-	ActionVotingPeriod               = 30 * PhaseTimeUnit
+	Type1Action                           = uint8(1)
+	Type2Action                           = uint8(2)
+	Type1ActionAcceptanceThreshold uint32 = 66
+	Type2ActionAcceptanceThreshold uint32 = 50
+	Type1ActionVotingPeriod               = 45 * PhaseTimeUnit
+	Type2ActionVotingPeriod               = 30 * PhaseTimeUnit
 
 	/// ==== Pillar constants ===
 
