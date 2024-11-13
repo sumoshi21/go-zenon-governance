@@ -133,7 +133,7 @@ func activateGovernanceStep1(t *testing.T, z mock.MockZenon) {
 
 	sporkName := "btc-bridge"
 	sporkDescription := "btc-bridge logic"
-	data, err := definition.ABISpork.PackMethod(definition.SporkCreateGovernanceMethodName, sporkName, sporkDescription)
+	data, err := definition.ABISpork.PackMethod(definition.SporkCreateMethodName, sporkName, sporkDescription)
 	common.FailIfErr(t, err)
 	dataString := base64.StdEncoding.EncodeToString(data)
 
@@ -148,19 +148,19 @@ func activateGovernanceStep1(t *testing.T, z mock.MockZenon) {
 	"count": 1,
 	"list": [
 		{
-			"Id": "fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1",
+			"Id": "22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147",
 			"Owner": "z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz",
 			"Name": "create btc-bridge spork",
 			"Description": "this spork will implement bitcoin bridge logic",
 			"Url": "https://qwerty.com",
 			"Destination": "z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48",
-			"Data": "btVuMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmJ0Yy1icmlkZ2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBidGMtYnJpZGdlIGxvZ2ljAAAAAAAAAAAAAAAAAAAAAA==",
+			"Data": "tgLjEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmJ0Yy1icmlkZ2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBidGMtYnJpZGdlIGxvZ2ljAAAAAAAAAAAAAAAAAAAAAA==",
 			"CreationTimestamp": 1000000280,
 			"Type": 1,
 			"Executed": false,
 			"Expired": false,
 			"Votes": {
-				"id": "fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1",
+				"id": "22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147",
 				"total": 0,
 				"yes": 0,
 				"no": 0
@@ -201,19 +201,19 @@ func activateGovernanceStep2(t *testing.T, z mock.MockZenon) {
 	"count": 1,
 	"list": [
 		{
-			"Id": "fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1",
+			"Id": "22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147",
 			"Owner": "z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz",
 			"Name": "create btc-bridge spork",
 			"Description": "this spork will implement bitcoin bridge logic",
 			"Url": "https://qwerty.com",
 			"Destination": "z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48",
-			"Data": "btVuMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmJ0Yy1icmlkZ2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBidGMtYnJpZGdlIGxvZ2ljAAAAAAAAAAAAAAAAAAAAAA==",
+			"Data": "tgLjEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmJ0Yy1icmlkZ2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBidGMtYnJpZGdlIGxvZ2ljAAAAAAAAAAAAAAAAAAAAAA==",
 			"CreationTimestamp": 1000000280,
 			"Type": 1,
 			"Executed": false,
 			"Expired": false,
 			"Votes": {
-				"id": "fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1",
+				"id": "22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147",
 				"total": 6,
 				"yes": 4,
 				"no": 2
@@ -243,19 +243,19 @@ func activateGovernanceStep3(t *testing.T, z mock.MockZenon) {
 	action, err := governanceApi.GetActionById(id)
 	common.Json(action, err).Equals(t, `
 {
-	"Id": "fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1",
+	"Id": "22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147",
 	"Owner": "z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz",
 	"Name": "create btc-bridge spork",
 	"Description": "this spork will implement bitcoin bridge logic",
 	"Url": "https://qwerty.com",
 	"Destination": "z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48",
-	"Data": "btVuMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmJ0Yy1icmlkZ2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBidGMtYnJpZGdlIGxvZ2ljAAAAAAAAAAAAAAAAAAAAAA==",
+	"Data": "tgLjEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmJ0Yy1icmlkZ2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBidGMtYnJpZGdlIGxvZ2ljAAAAAAAAAAAAAAAAAAAAAA==",
 	"CreationTimestamp": 1000000280,
 	"Type": 1,
 	"Executed": true,
 	"Expired": false,
 	"Votes": {
-		"id": "fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1",
+		"id": "22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147",
 		"total": 6,
 		"yes": 4,
 		"no": 2
@@ -270,18 +270,18 @@ func activateGovernanceStep3(t *testing.T, z mock.MockZenon) {
 	"count": 2,
 	"list": [
 		{
+			"id": "195163e46afd3afd1e08aeb0119e4f74a59ccb1424f7f565052690cc90d36731",
+			"name": "btc-bridge",
+			"description": "btc-bridge logic",
+			"activated": false,
+			"enforcementHeight": 0
+		},
+		{
 			"id": "3f45018ade795af67983e5616e42ed2e88e600afb1da73f4a2b406e74344eee6",
 			"name": "spork-governance",
 			"description": "activate spork for governance",
 			"activated": true,
 			"enforcementHeight": 9
-		},
-		{
-			"id": "e92d6ed7af1627f9cf4d020cd2475631147020ecd039b92cdd47d6f49edcd887",
-			"name": "btc-bridge",
-			"description": "btc-bridge logic",
-			"activated": false,
-			"enforcementHeight": 0
 		}
 	]
 }`)
@@ -311,7 +311,7 @@ func activateGovernanceStep4(t *testing.T, z mock.MockZenon) {
 	description := "this action will activate the btc-spork"
 	url := "https://qwerty.com"
 
-	data, err := definition.ABISpork.PackMethod(definition.SporkActivateGovernanceMethodName, sporkId)
+	data, err := definition.ABISpork.PackMethod(definition.SporkActivateMethodName, sporkId)
 	common.FailIfErr(t, err)
 	dataString := base64.StdEncoding.EncodeToString(data)
 
@@ -326,41 +326,41 @@ func activateGovernanceStep4(t *testing.T, z mock.MockZenon) {
 	"count": 2,
 	"list": [
 		{
-			"Id": "77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a",
-			"Owner": "z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz",
-			"Name": "activate btc-bridge spork",
-			"Description": "this action will activate the btc-spork",
-			"Url": "https://qwerty.com",
-			"Destination": "z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48",
-			"Data": "A5sCSektbtevFif5z00CDNJHVjEUcCDs0Dm5LN1H1vSe3NiH",
-			"CreationTimestamp": 1000000740,
-			"Type": 1,
-			"Executed": false,
-			"Expired": false,
-			"Votes": {
-				"id": "77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a",
-				"total": 0,
-				"yes": 0,
-				"no": 0
-			}
-		},
-		{
-			"Id": "fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1",
+			"Id": "22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147",
 			"Owner": "z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz",
 			"Name": "create btc-bridge spork",
 			"Description": "this spork will implement bitcoin bridge logic",
 			"Url": "https://qwerty.com",
 			"Destination": "z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48",
-			"Data": "btVuMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmJ0Yy1icmlkZ2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBidGMtYnJpZGdlIGxvZ2ljAAAAAAAAAAAAAAAAAAAAAA==",
+			"Data": "tgLjEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmJ0Yy1icmlkZ2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBidGMtYnJpZGdlIGxvZ2ljAAAAAAAAAAAAAAAAAAAAAA==",
 			"CreationTimestamp": 1000000280,
 			"Type": 1,
 			"Executed": true,
 			"Expired": false,
 			"Votes": {
-				"id": "fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1",
+				"id": "22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147",
 				"total": 6,
 				"yes": 4,
 				"no": 2
+			}
+		},
+		{
+			"Id": "674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809",
+			"Owner": "z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz",
+			"Name": "activate btc-bridge spork",
+			"Description": "this action will activate the btc-spork",
+			"Url": "https://qwerty.com",
+			"Destination": "z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48",
+			"Data": "JcVOlhlRY+Rq/Tr9HgiusBGeT3SlnMsUJPf1ZQUmkMyQ02cx",
+			"CreationTimestamp": 1000000740,
+			"Type": 1,
+			"Executed": false,
+			"Expired": false,
+			"Votes": {
+				"id": "674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809",
+				"total": 0,
+				"yes": 0,
+				"no": 0
 			}
 		}
 	]
@@ -407,41 +407,41 @@ func activateGovernanceStep5(t *testing.T, z mock.MockZenon) {
 	"count": 2,
 	"list": [
 		{
-			"Id": "77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a",
-			"Owner": "z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz",
-			"Name": "activate btc-bridge spork",
-			"Description": "this action will activate the btc-spork",
-			"Url": "https://qwerty.com",
-			"Destination": "z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48",
-			"Data": "A5sCSektbtevFif5z00CDNJHVjEUcCDs0Dm5LN1H1vSe3NiH",
-			"CreationTimestamp": 1000000740,
-			"Type": 1,
-			"Executed": false,
-			"Expired": false,
-			"Votes": {
-				"id": "77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a",
-				"total": 6,
-				"yes": 5,
-				"no": 1
-			}
-		},
-		{
-			"Id": "fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1",
+			"Id": "22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147",
 			"Owner": "z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz",
 			"Name": "create btc-bridge spork",
 			"Description": "this spork will implement bitcoin bridge logic",
 			"Url": "https://qwerty.com",
 			"Destination": "z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48",
-			"Data": "btVuMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmJ0Yy1icmlkZ2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBidGMtYnJpZGdlIGxvZ2ljAAAAAAAAAAAAAAAAAAAAAA==",
+			"Data": "tgLjEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmJ0Yy1icmlkZ2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBidGMtYnJpZGdlIGxvZ2ljAAAAAAAAAAAAAAAAAAAAAA==",
 			"CreationTimestamp": 1000000280,
 			"Type": 1,
 			"Executed": true,
 			"Expired": false,
 			"Votes": {
-				"id": "fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1",
+				"id": "22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147",
 				"total": 6,
 				"yes": 4,
 				"no": 2
+			}
+		},
+		{
+			"Id": "674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809",
+			"Owner": "z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz",
+			"Name": "activate btc-bridge spork",
+			"Description": "this action will activate the btc-spork",
+			"Url": "https://qwerty.com",
+			"Destination": "z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48",
+			"Data": "JcVOlhlRY+Rq/Tr9HgiusBGeT3SlnMsUJPf1ZQUmkMyQ02cx",
+			"CreationTimestamp": 1000000740,
+			"Type": 1,
+			"Executed": false,
+			"Expired": false,
+			"Votes": {
+				"id": "674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809",
+				"total": 6,
+				"yes": 5,
+				"no": 1
 			}
 		}
 	]
@@ -477,19 +477,19 @@ func activateGovernanceStep6(t *testing.T, z mock.MockZenon) {
 	action, err := governanceApi.GetActionById(actionId)
 	common.Json(action, err).Equals(t, `
 {
-	"Id": "77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a",
+	"Id": "674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809",
 	"Owner": "z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz",
 	"Name": "activate btc-bridge spork",
 	"Description": "this action will activate the btc-spork",
 	"Url": "https://qwerty.com",
 	"Destination": "z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48",
-	"Data": "A5sCSektbtevFif5z00CDNJHVjEUcCDs0Dm5LN1H1vSe3NiH",
+	"Data": "JcVOlhlRY+Rq/Tr9HgiusBGeT3SlnMsUJPf1ZQUmkMyQ02cx",
 	"CreationTimestamp": 1000000740,
 	"Type": 1,
 	"Executed": true,
 	"Expired": false,
 	"Votes": {
-		"id": "77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a",
+		"id": "674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809",
 		"total": 6,
 		"yes": 5,
 		"no": 1
@@ -504,22 +504,21 @@ func activateGovernanceStep6(t *testing.T, z mock.MockZenon) {
 	"count": 2,
 	"list": [
 		{
+			"id": "195163e46afd3afd1e08aeb0119e4f74a59ccb1424f7f565052690cc90d36731",
+			"name": "btc-bridge",
+			"description": "btc-bridge logic",
+			"activated": true,
+			"enforcementHeight": 116
+		},
+		{
 			"id": "3f45018ade795af67983e5616e42ed2e88e600afb1da73f4a2b406e74344eee6",
 			"name": "spork-governance",
 			"description": "activate spork for governance",
 			"activated": true,
 			"enforcementHeight": 9
-		},
-		{
-			"id": "e92d6ed7af1627f9cf4d020cd2475631147020ecd039b92cdd47d6f49edcd887",
-			"name": "btc-bridge",
-			"description": "btc-bridge logic",
-			"activated": true,
-			"enforcementHeight": 116
 		}
 	]
 }`)
-
 }
 
 func TestGovernance(t *testing.T) {
@@ -531,26 +530,26 @@ t=2001-09-09T01:47:00+0000 lvl=dbug msg=activated module=embedded contract=spork
 t=2001-09-09T01:48:40+0000 lvl=dbug msg="burned ZTS" module=embedded contract=token token="&{Owner:z1qxemdeddedxstakexxxxxxxxxxxxxxxxjv8v62 TokenName:QuasarCoin TokenSymbol:QSR TokenDomain:zenon.network TotalSupply:+165550000000000 MaxSupply:+4611686018427387903 Decimals:8 IsMintable:true IsBurnable:true IsUtility:true TokenStandard:zts1qsrxxxxxxxxxxxxxmrhjll}" burned-amount=15000000000000
 t=2001-09-09T01:49:00+0000 lvl=dbug msg="burned ZTS" module=embedded contract=token token="&{Owner:z1qxemdeddedxstakexxxxxxxxxxxxxxxxjv8v62 TokenName:QuasarCoin TokenSymbol:QSR TokenDomain:zenon.network TotalSupply:+149550000000000 MaxSupply:+4611686018427387903 Decimals:8 IsMintable:true IsBurnable:true IsUtility:true TokenStandard:zts1qsrxxxxxxxxxxxxxmrhjll}" burned-amount=16000000000000
 t=2001-09-09T01:49:40+0000 lvl=dbug msg="burned ZTS" module=embedded contract=token token="&{Owner:z1qxemdeddedxstakexxxxxxxxxxxxxxxxjv8v62 TokenName:QuasarCoin TokenSymbol:QSR TokenDomain:zenon.network TotalSupply:+132550000000000 MaxSupply:+4611686018427387903 Decimals:8 IsMintable:true IsBurnable:true IsUtility:true TokenStandard:zts1qsrxxxxxxxxxxxxxmrhjll}" burned-amount=17000000000000
-t=2001-09-09T01:51:20+0000 lvl=dbug msg="successfully created action proposal" module=embedded contract=governance action="&{Id:fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1 Owner:z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz Name:create btc-bridge spork Description:this spork will implement bitcoin bridge logic Url:https://qwerty.com Destination:z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48 Data:btVuMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmJ0Yy1icmlkZ2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBidGMtYnJpZGdlIGxvZ2ljAAAAAAAAAAAAAAAAAAAAAA== CreationTimestamp:1000000280 Type:1 Executed:false}"
-t=2001-09-09T01:53:20+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1 Name:TEST-pillar-1 Vote:0}"
-t=2001-09-09T01:53:40+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1 Name:TEST-pillar-cool Vote:0}"
-t=2001-09-09T01:54:00+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1 Name:TEST-pillar-znn Vote:0}"
-t=2001-09-09T01:54:20+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1 Name:TEST-pillar-wewe Vote:1}"
-t=2001-09-09T01:54:40+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1 Name:TEST-pillar-zumba Vote:1}"
-t=2001-09-09T01:55:00+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1 Name:TEST-pillar-6-quasar Vote:0}"
-t=2001-09-09T01:57:00+0000 lvl=dbug msg="check action votes" module=embedded contract=governance votes="&{Id:fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1 Total:6 Yes:4 No:2}" status=true
-t=2001-09-09T01:57:00+0000 lvl=dbug msg="action passed voting and is being executed" module=embedded contract=governance action-id=fe9de263cfc577f9d57c4f408baee85c4e430fdbd5736e445ec6fc3bdeda30d1 passed-votes=true
-t=2001-09-09T01:57:10+0000 lvl=dbug msg=created module=embedded contract=spork spork="&{Id:e92d6ed7af1627f9cf4d020cd2475631147020ecd039b92cdd47d6f49edcd887 Name:btc-bridge Description:btc-bridge logic Activated:false EnforcementHeight:0}"
-t=2001-09-09T01:59:00+0000 lvl=dbug msg="successfully created action proposal" module=embedded contract=governance action="&{Id:77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a Owner:z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz Name:activate btc-bridge spork Description:this action will activate the btc-spork Url:https://qwerty.com Destination:z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48 Data:A5sCSektbtevFif5z00CDNJHVjEUcCDs0Dm5LN1H1vSe3NiH CreationTimestamp:1000000740 Type:1 Executed:false}"
-t=2001-09-09T02:01:00+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a Name:TEST-pillar-1 Vote:0}"
-t=2001-09-09T02:01:20+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a Name:TEST-pillar-cool Vote:0}"
-t=2001-09-09T02:01:40+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a Name:TEST-pillar-znn Vote:0}"
-t=2001-09-09T02:02:00+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a Name:TEST-pillar-wewe Vote:1}"
-t=2001-09-09T02:02:20+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a Name:TEST-pillar-zumba Vote:0}"
-t=2001-09-09T02:02:40+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a Name:TEST-pillar-6-quasar Vote:0}"
-t=2001-09-09T02:04:40+0000 lvl=dbug msg="check action votes" module=embedded contract=governance votes="&{Id:77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a Total:6 Yes:5 No:1}" status=true
-t=2001-09-09T02:04:40+0000 lvl=dbug msg="action passed voting and is being executed" module=embedded contract=governance action-id=77ac4739850f5c6da938df6824e1484c5df91fcbf73ca098e8fb2236e038bc0a passed-votes=true
-t=2001-09-09T02:04:50+0000 lvl=dbug msg=activated module=embedded contract=spork spork="&{Id:e92d6ed7af1627f9cf4d020cd2475631147020ecd039b92cdd47d6f49edcd887 Name:btc-bridge Description:btc-bridge logic Activated:true EnforcementHeight:116}"
+t=2001-09-09T01:51:20+0000 lvl=dbug msg="successfully created action proposal" module=embedded contract=governance action="&{Id:22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147 Owner:z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz Name:create btc-bridge spork Description:this spork will implement bitcoin bridge logic Url:https://qwerty.com Destination:z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48 Data:tgLjEQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACmJ0Yy1icmlkZ2UAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBidGMtYnJpZGdlIGxvZ2ljAAAAAAAAAAAAAAAAAAAAAA== CreationTimestamp:1000000280 Type:1 Executed:false}"
+t=2001-09-09T01:53:20+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147 Name:TEST-pillar-1 Vote:0}"
+t=2001-09-09T01:53:40+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147 Name:TEST-pillar-cool Vote:0}"
+t=2001-09-09T01:54:00+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147 Name:TEST-pillar-znn Vote:0}"
+t=2001-09-09T01:54:20+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147 Name:TEST-pillar-wewe Vote:1}"
+t=2001-09-09T01:54:40+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147 Name:TEST-pillar-zumba Vote:1}"
+t=2001-09-09T01:55:00+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147 Name:TEST-pillar-6-quasar Vote:0}"
+t=2001-09-09T01:57:00+0000 lvl=dbug msg="check action votes" module=embedded contract=governance votes="&{Id:22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147 Total:6 Yes:4 No:2}" status=true
+t=2001-09-09T01:57:00+0000 lvl=dbug msg="action passed voting and is being executed" module=embedded contract=governance action-id=22545375297973875f2fd10b3c4fa46789ed2256b29865accc75b76e73c4b147 passed-votes=true
+t=2001-09-09T01:57:10+0000 lvl=dbug msg=created module=embedded contract=spork spork="&{Id:195163e46afd3afd1e08aeb0119e4f74a59ccb1424f7f565052690cc90d36731 Name:btc-bridge Description:btc-bridge logic Activated:false EnforcementHeight:0}"
+t=2001-09-09T01:59:00+0000 lvl=dbug msg="successfully created action proposal" module=embedded contract=governance action="&{Id:674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809 Owner:z1qzal6c5s9rjnnxd2z7dvdhjxpmmj4fmw56a0mz Name:activate btc-bridge spork Description:this action will activate the btc-spork Url:https://qwerty.com Destination:z1qxemdeddedxsp0rkxxxxxxxxxxxxxxxx956u48 Data:JcVOlhlRY+Rq/Tr9HgiusBGeT3SlnMsUJPf1ZQUmkMyQ02cx CreationTimestamp:1000000740 Type:1 Executed:false}"
+t=2001-09-09T02:01:00+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809 Name:TEST-pillar-1 Vote:0}"
+t=2001-09-09T02:01:20+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809 Name:TEST-pillar-cool Vote:0}"
+t=2001-09-09T02:01:40+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809 Name:TEST-pillar-znn Vote:0}"
+t=2001-09-09T02:02:00+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809 Name:TEST-pillar-wewe Vote:1}"
+t=2001-09-09T02:02:20+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809 Name:TEST-pillar-zumba Vote:0}"
+t=2001-09-09T02:02:40+0000 lvl=dbug msg="voted for hash" module=embedded contract=common pillar-vote="&{Id:674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809 Name:TEST-pillar-6-quasar Vote:0}"
+t=2001-09-09T02:04:40+0000 lvl=dbug msg="check action votes" module=embedded contract=governance votes="&{Id:674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809 Total:6 Yes:5 No:1}" status=true
+t=2001-09-09T02:04:40+0000 lvl=dbug msg="action passed voting and is being executed" module=embedded contract=governance action-id=674b3cac7a52b70cc78da2780c3f7234715e42b1c6971f7f92345d09f5f90809 passed-votes=true
+t=2001-09-09T02:04:50+0000 lvl=dbug msg=activated module=embedded contract=spork spork="&{Id:195163e46afd3afd1e08aeb0119e4f74a59ccb1424f7f565052690cc90d36731 Name:btc-bridge Description:btc-bridge logic Activated:true EnforcementHeight:116}"
 `)
 
 	activateGovernanceStep6(t, z)

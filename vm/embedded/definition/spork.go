@@ -15,9 +15,6 @@ const (
 		{"type":"function","name":"CreateSpork","inputs":[{"name":"name","type":"string"},{"name":"description","type":"string"}]},
 		{"type":"function","name":"ActivateSpork","inputs":[{"name":"id","type":"hash"}]},
 
-		{"type":"function","name":"CreateSporkGovernance","inputs":[{"name":"name","type":"string"},{"name":"description","type":"string"}]},
-		{"type":"function","name":"ActivateSporkGovernance","inputs":[{"name":"id","type":"hash"}]},
-
 		{"type":"variable", "name":"sporkInfo", "inputs":[
 			{"name":"id", "type":"hash"},
 			{"name":"name", "type":"string"},
@@ -29,9 +26,6 @@ const (
 
 	SporkCreateMethodName   = "CreateSpork"
 	SporkActivateMethodName = "ActivateSpork"
-
-	SporkCreateGovernanceMethodName   = "CreateSporkGovernance"
-	SporkActivateGovernanceMethodName = "ActivateSporkGovernance"
 
 	sporkInfoVariableName = "sporkInfo"
 )

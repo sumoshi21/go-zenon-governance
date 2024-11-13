@@ -66,10 +66,6 @@ func getHtlc() map[types.Address]*embeddedImplementation {
 		},
 		cabi.ABIHtlc,
 	}
-
-	contracts[types.SporkContract].m[cabi.SporkCreateGovernanceMethodName] = &implementation.CreateSporkGovernanceMethod{cabi.SporkCreateGovernanceMethodName}
-	contracts[types.SporkContract].m[cabi.SporkActivateGovernanceMethodName] = &implementation.ActivateSporkGovernanceMethod{cabi.SporkActivateGovernanceMethodName}
-
 	return contracts
 }
 
